@@ -1,0 +1,12 @@
+../BSP/i2c_slave.c:30:6:I2C_Slave_Init	8	static
+../BSP/i2c_slave.c:46:9:I2C_Data_Ready	4	static
+../BSP/i2c_slave.c:56:9:I2C_Get_Next_Command	16	static
+../BSP/i2c_slave.c:81:6:HAL_I2C_AddrCallback	16	static
+../BSP/i2c_slave.c:97:6:HAL_I2C_SlaveRxCpltCallback	48	static
+../BSP/i2c_slave.c:120:6:HAL_I2C_ListenCpltCallback	16	static
+../BSP/i2c_slave.c:129:6:HAL_I2C_ErrorCallback	16	static
+../BSP/i2c_slave.c:138:6:RingBuffer_Init	16	static
+../BSP/i2c_slave.c:150:9:RingBuffer_IsEmpty	16	static
+../BSP/i2c_slave.c:160:9:RingBuffer_IsFull	16	static
+../BSP/i2c_slave.c:171:9:RingBuffer_Push	24	static
+../BSP/i2c_slave.c:187:9:RingBuffer_Pop	24	static

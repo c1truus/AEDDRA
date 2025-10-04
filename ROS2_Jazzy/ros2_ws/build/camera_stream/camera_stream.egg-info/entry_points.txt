@@ -1,0 +1,3 @@
+[console_scripts]
+camera_publisher = camera_stream.camera_publisher:main
+image_subscriber = camera_stream.image_subscriber:main

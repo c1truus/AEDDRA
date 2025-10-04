@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-cd9740b0c3317c0acfa5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "arducam_stream",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "arducam_stream_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-arducam_stream_uninstall-3d823c461ceaf6ab0fe6.json",
+					"name" : "arducam_stream_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "camera_publisher::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-camera_publisher-c35913c161ba5a526da3.json",
+					"name" : "camera_publisher",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "image_subscriber::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-image_subscriber-2529060423ec916172d6.json",
+					"name" : "image_subscriber",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-3cb053b4d7f15b7e0c89.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/rpi5/ros2_ws/build/arducam_stream",
+		"source" : "/home/rpi5/ros2_ws/src/arducam_stream"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

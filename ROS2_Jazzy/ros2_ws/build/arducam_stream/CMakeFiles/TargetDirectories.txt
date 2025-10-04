@@ -1,0 +1,11 @@
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/uninstall.dir
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/arducam_stream_uninstall.dir
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/camera_publisher.dir
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/image_subscriber.dir
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/test.dir
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/edit_cache.dir
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/rebuild_cache.dir
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/list_install_components.dir
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/install.dir
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/install/local.dir
+/home/rpi5/ros2_ws/build/arducam_stream/CMakeFiles/install/strip.dir

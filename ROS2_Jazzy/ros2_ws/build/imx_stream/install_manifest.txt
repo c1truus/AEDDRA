@@ -1,0 +1,17 @@
+/home/rpi5/ros2_ws/install/imx_stream/lib/imx_stream/camera_publisher
+/home/rpi5/ros2_ws/install/imx_stream/lib/imx_stream/image_subscriber
+/home/rpi5/ros2_ws/install/imx_stream/share/ament_index/resource_index/package_run_dependencies/imx_stream
+/home/rpi5/ros2_ws/install/imx_stream/share/ament_index/resource_index/parent_prefix_path/imx_stream
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/environment/ament_prefix_path.sh
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/environment/ament_prefix_path.dsv
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/environment/path.sh
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/environment/path.dsv
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/local_setup.bash
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/local_setup.sh
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/local_setup.zsh
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/local_setup.dsv
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/package.dsv
+/home/rpi5/ros2_ws/install/imx_stream/share/ament_index/resource_index/packages/imx_stream
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/cmake/imx_streamConfig.cmake
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/cmake/imx_streamConfig-version.cmake
+/home/rpi5/ros2_ws/install/imx_stream/share/imx_stream/package.xml

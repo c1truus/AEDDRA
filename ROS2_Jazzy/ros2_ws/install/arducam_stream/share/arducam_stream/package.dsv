@@ -1,0 +1,8 @@
+source;share/arducam_stream/hook/cmake_prefix_path.ps1
+source;share/arducam_stream/hook/cmake_prefix_path.dsv
+source;share/arducam_stream/hook/cmake_prefix_path.sh
+source;share/arducam_stream/local_setup.bash
+source;share/arducam_stream/local_setup.dsv
+source;share/arducam_stream/local_setup.ps1
+source;share/arducam_stream/local_setup.sh
+source;share/arducam_stream/local_setup.zsh
