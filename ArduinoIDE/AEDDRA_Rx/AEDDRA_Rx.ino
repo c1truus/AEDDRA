@@ -6,9 +6,9 @@
 #define I2C_SDA 21
 #define I2C_SCL 22
 #define STM32_I2C_ADDR 0x12
-#define DEBUG true
+#define DEBUG false
 
-// ===== MAC ADDRESSES ===== //78:1c:3c:2d:92:e4
+// ===== MAC ADDRESSES =====
 const uint8_t MCC_Tx_MAC[6] = {0xD8, 0xBC, 0x38, 0xF9, 0x62, 0x94}; // Robot Controller's Tx's MAC
 
 // ===== DATA STRUCTURES =====
@@ -41,8 +41,8 @@ portMUX_TYPE mux = portMUX_INITIALIZER_UNLOCKED;
 volatile RobotCommand robotCommand = {};
 volatile unsigned long lastCommTime = 0;
 float speedMultiplier = 1.0; // For fast/normal mode
-const int16_t MOTOR_MIN = -2000;
-const int16_t MOTOR_MAX = 2000;
+const int16_t MOTOR_MIN = -1800;
+const int16_t MOTOR_MAX = 1800;
 const uint8_t SERVO_MIN = 0;
 const uint8_t SERVO_MAX = 180;
 const int16_t CENTER = 2048;
@@ -113,7 +113,7 @@ void setup() {
   if (DEBUG) Serial.println("ESP-NOW Initialized");
 
   Wire.begin(I2C_SDA, I2C_SCL);
-  Wire.setClock(100000);
+  Wire.setClock(400000);
   if (DEBUG) Serial.println("Receiver Ready");
 }
 
@@ -130,18 +130,22 @@ void loop() {
   portEXIT_CRITICAL(&mux);
 
   bool robotActive = (millis() - lastCommTime) < TIMEOUT;
-  STM32Command cmd = robotActive ? lastCmd : SAFE_VALUES;
-  cmd.KILL = !robotActive;
+  STM32Command cmd = lastCmd;
 
-  if (robotActive) {
+  if (!robotActive) {
+    // Immediately set KILL to true and stop all motors when connection fails
+    cmd = SAFE_VALUES;
+    cmd.KILL = true;
+    sendToSTM32(cmd); // Send immediately to stop motors
+  } else {
     // Handle joystick inputs
     int16_t r_x = currentCommand.right_x;
     int16_t r_y = currentCommand.right_y;
     int16_t l_x = currentCommand.left_x;
     int16_t l_y = currentCommand.left_y;
 
-    int16_t Vx = normalize(l_y);
-    int16_t Vy = -normalize(l_x);
+    int16_t Vx = -normalize(l_y);
+    int16_t Vy = normalize(l_x);
     int16_t Wz = normalize(r_y);
 
     // Calculate and clamp motor values
@@ -149,6 +153,7 @@ void loop() {
     cmd.m2 = clampMotor(Vx - Vy + Wz);
     cmd.m3 = clampMotor(Vx - Vy - Wz);
     cmd.m4 = clampMotor(Vx + Vy - Wz);
+    cmd.KILL = false; // Explicitly set KILL to false when active
 
     // Handle speed mode (UP/DOWN buttons)
     static bool lastUpState = false;
@@ -210,31 +215,24 @@ void loop() {
     cmd.shoulder = shoulderAngle;
     cmd.elbow = elbowAngle;
     cmd.gripper = gripperAngle;
-
-  } else {
-    // Use safe values if communication is lost
-    cmd = SAFE_VALUES;
-    cmd.KILL = true;
-    speedMultiplier = 1.0;
-    selectedServo = 0; // Reset servo selection
   }
 
-  // Send to STM32 at 50Hz
-  if (millis() - lastSendTime >= 20) {
+  // Send to STM32 at 100Hz
+  if (millis() - lastSendTime >= 10) {
     sendToSTM32(cmd); 
     lastCmd = cmd;
     lastSendTime = millis();
   }
 
   // Debug print every 200ms
-  if (DEBUG && millis() - lastPrintTime >= 200) {
+  if (DEBUG && millis() - lastPrintTime >= 100) {
     lastPrintTime = millis();
-    Serial.printf("Robot: L_X=%d L_Y=%d R_X=%d SpeedMode=%.1f Active=%d Servo=%d EncoderDelta=%d AngleChange=%d Base=%d Shoulder=%d Elbow=%d Gripper=%d\n",
+    Serial.printf("Robot: L_X=%d L_Y=%d R_X=%d SpeedMode=%.1f Active=%d Servo=%d EncoderDelta=%d AngleChange=%d Base=%d Shoulder=%d Elbow=%d Gripper=%d KILL=%d\n",
                   currentCommand.left_x, currentCommand.left_y,
                   currentCommand.right_x, speedMultiplier, robotActive,
                   selectedServo, currentCommand.encoder_val, (int)(currentCommand.encoder_val * ENCODER_TICK_TO_DEGREE),
-                  cmd.base, cmd.shoulder, cmd.elbow, cmd.gripper);
+                  cmd.base, cmd.shoulder, cmd.elbow, cmd.gripper, cmd.KILL);
   }
 
   delay(1);
-} 
+}

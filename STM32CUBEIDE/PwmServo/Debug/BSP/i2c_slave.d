@@ -25,10 +25,11 @@ BSP/i2c_slave.o: ../BSP/i2c_slave.c ../BSP/i2c_slave.h ../BSP/bsp.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Core/Inc/gpio.h ../Core/Inc/main.h ../Core/Inc/usart.h \
- ../Core/Inc/i2c.h ../Core/Inc/tim.h \
+ ../Core/Inc/gpio.h ../Core/Inc/main.h ../Core/Inc/tim.h \
+ ../Core/Inc/usart.h ../Core/Inc/i2c.h \
  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h \
  ../BSP/bsp_beep.h ../BSP/bsp_key.h ../BSP/bsp_motor.h \
+ ../BSP/bsp_encoder.h ../BSP/bsp_motion.h ../BSP/bsp_pid.h \
  ../BSP/bsp_pwmServo.h ../BSP/bsp_uart.h
 ../BSP/i2c_slave.h:
 ../BSP/bsp.h:
@@ -61,12 +62,15 @@ BSP/i2c_slave.o: ../BSP/i2c_slave.c ../BSP/i2c_slave.h ../BSP/bsp.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 ../Core/Inc/gpio.h:
 ../Core/Inc/main.h:
+../Core/Inc/tim.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/i2c.h:
-../Core/Inc/tim.h:
 ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h:
 ../BSP/bsp_beep.h:
 ../BSP/bsp_key.h:
 ../BSP/bsp_motor.h:
+../BSP/bsp_encoder.h:
+../BSP/bsp_motion.h:
+../BSP/bsp_pid.h:
 ../BSP/bsp_pwmServo.h:
 ../BSP/bsp_uart.h:

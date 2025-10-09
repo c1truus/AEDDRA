@@ -8,12 +8,12 @@
 
 /* HAL Library Includes */
 #include "main.h"
-#include "stdbool.h"
 #include "gpio.h"
-#include "usart.h"
-
-#include "i2c.h"
 #include "tim.h"
+#include "usart.h"
+#include "i2c.h"
+
+#include "stdbool.h"
 #include "stm32f1xx_hal.h"
 #include "stm32f103xe.h"
 
@@ -22,18 +22,20 @@
 #include "bsp_beep.h"
 #include "bsp_key.h"
 #include "bsp_motor.h"
+#include "bsp_encoder.h"
+#include "bsp_motion.h"
+#include "bsp_pid.h"
 #include "bsp_pwmServo.h"
 #include "bsp_uart.h"
 
 #include <stdio.h>
-
 /* Definitions */
 #define MOTOR_ID_M1          1
 #define MOTOR_ID_M2          2
 #define MOTOR_ID_M3          3
 #define MOTOR_ID_M4          4
 #define LED_TOGGLE()         HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin)
-#define RX_BUFFER_SIZE       64
+#define RX_BUFFER_SIZE       512
 /* Data Structures */
 typedef struct __attribute__((packed)) {
     bool kill;          // Kill switch for safe state

@@ -27,6 +27,8 @@ void Bsp_Init(void)
     I2C_Slave_Init();
     PwmServo_Init();
     Motor_Init();
+    Encoder_Init();
+    PID_Param_Init();
     USART1_Init();
     Beep_On_Time(50);
 }
@@ -37,7 +39,10 @@ void Bsp_Init(void)
  */
 void Bsp_Loop(void)
 {
+	Motion_Handle();
     static uint8_t key_state = 0;
+    static uint8_t empty_buffer_count = 0;  // Counter for consecutive empty buffer occurrences
+    const uint8_t EMPTY_BUFFER_THRESHOLD = 16;  // Threshold for connection loss (10 consecutive empties ~100ms)
 
     // Detect button down events
     if (Key1_State(KEY_MODE_ONE_TIME))
@@ -47,6 +52,13 @@ void Bsp_Loop(void)
         {
             key_state = 0;
             PwmServo_Set_Angle_All(50, 50, 50, 50);
+            Motion_Ctrl(500,0,0);
+            HAL_Delay(500);
+            Motion_Ctrl(0,500,0);
+            HAL_Delay(500);
+            Motion_Ctrl(0,-500,0);
+            HAL_Delay(500);
+            Motion_Ctrl(-500,	0,0);
             printf("key state: %d\n", key_state );
         }
         else
@@ -62,38 +74,22 @@ void Bsp_Loop(void)
     Command_t cmd;
     if (I2C_Get_Next_Command(&cmd))
     {
-    	printf("Got command:\n");
+        empty_buffer_count = 0;  // Reset counter on successful command
         if (cmd.kill)
         {
             printf("KILL SWITCH ACTIVATED - Stopping all motors and servos\n");
-            Motor_Set_Pwm(MOTOR_ID_M1, 0);
-            Motor_Set_Pwm(MOTOR_ID_M2, 0);
-            Motor_Set_Pwm(MOTOR_ID_M3, 0);
-            Motor_Set_Pwm(MOTOR_ID_M4, 0);
+            Motion_Stop(STOP_BRAKE);
             PwmServo_Set_Angle_All(90, 90, 90, 90);  // Safe values
         }
         else
         {
             // TODO: If all motor values are 0, stop immediately (brake/coast all motors)
             if (cmd.m1 == 0 && cmd.m2 == 0 && cmd.m3 == 0 && cmd.m4 == 0) {
-                Motor_Stop(MOTOR_ID_M1);
-                Motor_Stop(MOTOR_ID_M2);
-                Motor_Stop(MOTOR_ID_M3);
-                Motor_Stop(MOTOR_ID_M4);
+            	Motion_Stop(STOP_BRAKE);
                 printf("All motors stopped (zero PWM command)\n");
             } else {
-                // Print all received values (uncomment for debugging)
-                // printf("\n=== NEW COMMAND RECEIVED ===\n");
-                // printf("Motors: M1=%5d, M2=%5d, M3=%5d, M4=%5d\n",
-                //        cmd.m1, cmd.m2, cmd.m3, cmd.m4);
-                // printf("Servos: S1=%3d°, S2=%3d°, S3=%3d°, S4=%3d°\n",
-                //        cmd.s1, cmd.s2, cmd.s3, cmd.s4);
-                // printf("=============================\n");
-
-                Motor_Set_Pwm(MOTOR_ID_M1, cmd.m1);
-                Motor_Set_Pwm(MOTOR_ID_M2, cmd.m2);
-                Motor_Set_Pwm(MOTOR_ID_M3, cmd.m3);
-                Motor_Set_Pwm(MOTOR_ID_M4, cmd.m4);
+            	printf("Got command:\n");
+            	Motion_Set_Speed(cmd.m1, cmd.m2, cmd.m3, cmd.m4);
                 PwmServo_Set_Angle(1, cmd.s1);
                 PwmServo_Set_Angle(2, cmd.s2);
                 PwmServo_Set_Angle(3, cmd.s3);
@@ -101,6 +97,21 @@ void Bsp_Loop(void)
             }
         }
     }
+    else
+    {
+        empty_buffer_count++;  // Increment counter on empty buffer
+        if (empty_buffer_count >= EMPTY_BUFFER_THRESHOLD)
+        {
+            printf("I2C connection lost (ring buffer empty for %d cycles) - Stopping all motors and resetting\n", EMPTY_BUFFER_THRESHOLD);
+            Motion_Stop(STOP_BRAKE);  // Stop motors with brake
+            PID_Clear_Motor(MAX_MOTOR);  // Reset PID states for all motors
+            empty_buffer_count = 0;  // Reset counter after handling
+            PwmServo_Set_Angle_All(90, 90, 90, 90);
+//            I2C_Slave_Init();
+            HAL_I2C_EnableListen_IT(&hi2c2);
+        }
+    }
+
     Bsp_Led_Show_State_Handle();
     Beep_Timeout_Close_Handle();
     HAL_Delay(10);

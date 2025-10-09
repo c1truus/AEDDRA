@@ -1,0 +1,9 @@
+../BSP/bsp_motion.c:26:6:Motion_Set_Pwm	9
+../BSP/bsp_motion.c:48:6:Motion_Stop	1
+../BSP/bsp_motion.c:59:6:Motion_Set_Speed	2
+../BSP/bsp_motion.c:75:6:Motion_Get_Speed	2
+../BSP/bsp_motion.c:102:7:Motion_Get_APB	1
+../BSP/bsp_motion.c:108:7:Motion_Get_Circle_MM	1
+../BSP/bsp_motion.c:115:6:Motion_Get_Encoder	2
+../BSP/bsp_motion.c:128:6:Motion_Ctrl	12
+../BSP/bsp_motion.c:159:6:Motion_Handle	2

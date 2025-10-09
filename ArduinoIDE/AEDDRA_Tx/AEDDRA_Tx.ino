@@ -65,8 +65,8 @@ void IRAM_ATTR handleEncoder() {
 void calculateJoystickData(RobotCommand &data) {
   static int16_t lastEncoderCount = 0;
   
-  int16_t left_x_raw = analogRead(VRX1_PIN);
-  int16_t left_y_raw = analogRead(VRY1_PIN);
+  int16_t left_x_raw = analogRead(VRY1_PIN);
+  int16_t left_y_raw = analogRead(VRX1_PIN);
   int16_t right_x_raw = analogRead(VRX2_PIN);
   int16_t right_y_raw = analogRead(VRY2_PIN);
   

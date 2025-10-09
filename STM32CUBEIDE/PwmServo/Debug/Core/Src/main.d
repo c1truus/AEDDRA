@@ -29,6 +29,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/usart.h ../Core/Inc/gpio.h ../BSP/bsp.h \
  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h \
  ../BSP/bsp_beep.h ../BSP/bsp_key.h ../BSP/bsp_motor.h \
+ ../BSP/bsp_encoder.h ../BSP/bsp_motion.h ../BSP/bsp_pid.h \
  ../BSP/bsp_pwmServo.h ../BSP/bsp_uart.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
@@ -68,5 +69,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../BSP/bsp_beep.h:
 ../BSP/bsp_key.h:
 ../BSP/bsp_motor.h:
+../BSP/bsp_encoder.h:
+../BSP/bsp_motion.h:
+../BSP/bsp_pid.h:
 ../BSP/bsp_pwmServo.h:
 ../BSP/bsp_uart.h:

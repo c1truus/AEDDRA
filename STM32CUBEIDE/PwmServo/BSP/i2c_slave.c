@@ -15,7 +15,7 @@ extern I2C_HandleTypeDef hi2c2;
 
 /* Constants */
 #define RX_SIZE 13
-#define RX_BUFFER_SIZE 64
+#define RX_BUFFER_SIZE 512
 
 /* Static variables */
 static uint8_t RxData[RX_SIZE];
