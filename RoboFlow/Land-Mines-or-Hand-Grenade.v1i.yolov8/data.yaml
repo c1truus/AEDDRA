@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['0', 'Hand Granades', 'landmines', '3']
+
+roboflow:
+  workspace: cpe-fk7xs
+  project: land-mines-or-hand-grenade
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/cpe-fk7xs/land-mines-or-hand-grenade/dataset/1
