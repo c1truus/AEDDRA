@@ -13,7 +13,7 @@ public:
     publisher_ = this->create_publisher<sensor_msgs::msg::Image>("camera/image_raw", 10);
     timer_ = this->create_wall_timer(
       std::chrono::milliseconds(33), std::bind(&CameraPublisher::timer_callback, this));  // ~30 FPS
-    // Use GStreamer with libcamerasrc for IMX219 (no V4L2)
+    // Use GStreamer with libcamerasrc for IMX219 (no V4L2) 
     cap_ = cv::VideoCapture("libcamerasrc ! video/x-raw,width=1280,height=720,framerate=30/1 ! videoconvert ! video/x-raw,format=BGR ! appsink", cv::CAP_GSTREAMER);
     if (!cap_.isOpened()) {
       RCLCPP_ERROR(this->get_logger(), "Cannot open IMX219 camera with GStreamer!");

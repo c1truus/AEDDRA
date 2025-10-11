@@ -3,7 +3,7 @@ val: ../valid/images
 test: ../test/images
 
 nc: 4
-names: ['0', 'Hand Granades', 'landmines', '3']
+names: ['0', 'Hand Granade', 'Land Mine', '3']
 
 roboflow:
   workspace: cpe-fk7xs
